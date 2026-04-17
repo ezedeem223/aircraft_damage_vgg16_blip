@@ -7,7 +7,7 @@ This repository combines two related tasks for aircraft inspection support:
 1. binary image classification of aircraft surface damage using a VGG16-based transfer learning model
 2. automated captioning and report-style text generation using BLIP
 
-The original project was built as a notebook-driven experiment. This refactor preserves that workflow and model choice while reorganizing the code into a reproducible Python package, runnable scripts, structured results, lightweight tests, and a simple demo interface.
+This repository packages the workflow as a reproducible Python project with runnable scripts, structured results, lightweight tests, and a small demo interface, while still keeping curated notebooks and archived experiment artifacts available for context.
 
 ## Quick Start
 
@@ -40,12 +40,12 @@ Aircraft inspection workflows often need more than a single label. This project 
 - BLIP-backed caption and summary generation wrapped in a clean reporting interface
 - Config-driven training, evaluation, prediction, and demo scripts
 - Structured `results/` directory for metrics, plots, sample predictions, and sample reports
-- Preserved original notebook plus a slimmer exploration notebook that calls package code
+- Curated development notebooks for exploratory analysis and reproducibility
 - Graceful setup errors when data, checkpoints, or BLIP assets are missing
 
 ![Preserved notebook aircraft damage prediction example](results/sample_predictions/notebook_sample_prediction.png)
 
-*Preserved notebook output from the original project showing a sample aircraft-damage prediction result.*
+*Archived experiment output showing a sample aircraft-damage prediction result.*
 
 ## Architecture Diagram
 
@@ -134,11 +134,11 @@ This setup is intentionally practical rather than overengineered: classification
 
 ## Dataset
 
-The original notebook used the public aircraft damage dataset mirrored at:
+This project uses a public aircraft damage dataset referenced below:
 
-- Course mirror: `https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/ZjXM4RKxlBK9__ZjHBLl5A/aircraft-damage-dataset-v1.tar`
+- Public dataset tarball reference used in earlier experiments: `https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/ZjXM4RKxlBK9__ZjHBLl5A/aircraft-damage-dataset-v1.tar`
 - Original source reference: Roboflow Aircraft Damage Dataset by Youssef Donia
-- Data license reference in the original project: CC BY 4.0
+- Public source license reference: CC BY 4.0
 
 The dataset is not committed to this repository. Place it locally under:
 
@@ -174,7 +174,7 @@ More detail is in [data/README.md](data/README.md).
   - Dense(512, ReLU)
   - Dropout(0.3)
   - Dense(1, Sigmoid)
-- Training setup preserved from the original notebook:
+- Baseline training configuration used for the recorded experiment artifacts:
   - image size: `224 x 224`
   - batch size: `32`
   - epochs: `5`
@@ -201,7 +201,7 @@ More detail is in [data/README.md](data/README.md).
 
 ## Results
 
-This repository preserves the actual baseline metrics visible in the original notebook output. They are stored in [results/metrics.json](results/metrics.json) and summarized here:
+This repository includes baseline metrics from archived experiment artifacts. They are stored in [results/metrics.json](results/metrics.json) and summarized here:
 
 - Training samples: `300`
 - Validation samples: `96`
@@ -213,9 +213,9 @@ This repository preserves the actual baseline metrics visible in the original no
 
 Important:
 
-- These numbers come from the committed notebook output, not from a re-run during this refactor.
+- These numbers come from committed experiment artifacts and are not newly generated in this documentation pass.
 - The trained checkpoint used to produce them is not included in the repository.
-- A full classification report and confusion matrix were not saved in the original notebook, so placeholders are included until you run evaluation with a local checkpoint.
+- A full classification report and confusion matrix were not saved with the archived experiment artifacts, so placeholders are included until you run evaluation with a local checkpoint.
 
 To generate fresh evaluation artifacts once you have data and a checkpoint:
 
@@ -225,13 +225,13 @@ python scripts/run_evaluate.py --config configs/inference.yaml
 
 ## Sample Outputs
 
-### Preserved notebook outputs
+### Archived experiment outputs
 
 - Sample prediction visualization: [results/sample_predictions/notebook_sample_prediction.png](results/sample_predictions/notebook_sample_prediction.png)
 - BLIP example image: [results/sample_reports/notebook_blip_example_image.png](results/sample_reports/notebook_blip_example_image.png)
 - BLIP text outputs: [results/sample_reports/notebook_blip_outputs.txt](results/sample_reports/notebook_blip_outputs.txt)
 
-Example BLIP outputs preserved from the notebook:
+Example BLIP outputs captured in the archived experiment artifacts:
 
 ```text
 Caption: this is a picture of a plane
@@ -243,16 +243,16 @@ Summary: this is a detailed photo showing the damage to the fuselage of the airc
 
 ### Example End-to-End Output
 
-The preserved notebook artifacts show the two halves of the workflow separately: a classification visualization and BLIP-generated text. In the packaged project, those pieces are combined into one inspection-style output.
+The archived experiment artifacts show the two halves of the workflow separately: a classification visualization and BLIP-generated text. In the current project, those pieces are combined into one inspection-style output.
 
-- Classification signal preserved in the notebook sample image: predicted label `crack`
-- Confidence is available in the current CLI and demo flow, but it was not logged in the original notebook artifacts
-- BLIP descriptive signal preserved in the notebook outputs includes `Caption: this is a picture of a plane`
-- BLIP descriptive signal preserved in the notebook outputs includes `Summary: this is a detailed photo showing the engine of a boeing 747`
-- BLIP descriptive signal preserved in the notebook outputs includes `Caption: this is a picture of a plane that was sitting on the ground in a field`
-- BLIP descriptive signal preserved in the notebook outputs includes `Summary: this is a detailed photo showing the damage to the fuselage of the aircraft`
+- Classification signal captured in the archived sample image: predicted label `crack`
+- Confidence is available in the current CLI and demo flow, but it was not logged in the archived experiment artifacts
+- BLIP descriptive signal preserved in the archived outputs includes `Caption: this is a picture of a plane`
+- BLIP descriptive signal preserved in the archived outputs includes `Summary: this is a detailed photo showing the engine of a boeing 747`
+- BLIP descriptive signal preserved in the archived outputs includes `Caption: this is a picture of a plane that was sitting on the ground in a field`
+- BLIP descriptive signal preserved in the archived outputs includes `Summary: this is a detailed photo showing the damage to the fuselage of the aircraft`
 
-Current report-style output structure in the refactored package:
+Current report-style output structure in the packaged project:
 
 ```text
 Aircraft Damage Assessment
@@ -316,16 +316,16 @@ python scripts/run_predict.py --image path/to/image.jpg --config configs/inferen
 python scripts/run_demo.py --config configs/inference.yaml --report-config configs/report_generation.yaml
 ```
 
-## Notebook Workflow
+## Development Notebooks
 
-- [notebooks/aircraft_damage_vgg16_blip.ipynb](notebooks/aircraft_damage_vgg16_blip.ipynb) preserves the original end-to-end notebook implementation and outputs.
-- [notebooks/exploration.ipynb](notebooks/exploration.ipynb) is a slimmer notebook intended for exploration and demos using the refactored package.
+- [notebooks/aircraft_damage_vgg16_blip.ipynb](notebooks/aircraft_damage_vgg16_blip.ipynb) is an archived development notebook containing the earlier exploratory implementation and recorded outputs.
+- [notebooks/exploration.ipynb](notebooks/exploration.ipynb) is a curated lightweight notebook for exploration and demos against the packaged codebase.
 
-The repository no longer depends on the notebook for core functionality.
+The repository no longer depends on notebook execution for core functionality.
 
 ## Limitations
 
-- The current classifier is binary only and assumes the `crack` vs `dent` setup from the original notebook.
+- The current classifier is binary only and assumes the `crack` vs `dent` label setup used by the archived experiment assets and current configs.
 - No fine-tuned checkpoint is committed, so prediction, evaluation, and demo flows require local training or a user-supplied checkpoint.
 - The BLIP model downloads from Hugging Face the first time it is used unless cached locally.
 - The current pipeline classifies the whole image and does not localize damage regions.
