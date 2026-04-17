@@ -1,11 +1,38 @@
 # Aircraft Damage Classification and Automated Report Generation using VGG16 and BLIP
 
+[![CI](https://github.com/ezedeem223/aircraft_damage_vgg16_blip/actions/workflows/ci.yml/badge.svg)](https://github.com/ezedeem223/aircraft_damage_vgg16_blip/actions/workflows/ci.yml)
+
 This repository combines two related tasks for aircraft inspection support:
 
 1. binary image classification of aircraft surface damage using a VGG16-based transfer learning model
 2. automated captioning and report-style text generation using BLIP
 
 The original project was built as a notebook-driven experiment. This refactor preserves that workflow and model choice while reorganizing the code into a reproducible Python package, runnable scripts, structured results, lightweight tests, and a simple demo interface.
+
+## Quick Start
+
+The fastest path to try the full pipeline locally is:
+
+```bash
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+# or: source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m pip install -e .
+
+# if you do not already have a local checkpoint
+python scripts/run_train.py --config configs/train.yaml --download-data
+
+# launch the demo once a checkpoint is available
+python scripts/run_demo.py --config configs/inference.yaml --report-config configs/report_generation.yaml
+```
+
+If you already have `models/vgg16_aircraft_damage.keras`, you can skip training and go straight to `scripts/run_demo.py` or `scripts/run_predict.py`.
+
+## Why This Project Matters
+
+Aircraft inspection workflows often need more than a single label. This project combines binary damage classification with descriptive BLIP text so one image can produce both a categorical signal and readable inspection context, which is useful for maintenance triage, documentation support, and reducing repetitive manual review steps.
 
 ## Key Features
 
@@ -15,6 +42,20 @@ The original project was built as a notebook-driven experiment. This refactor pr
 - Structured `results/` directory for metrics, plots, sample predictions, and sample reports
 - Preserved original notebook plus a slimmer exploration notebook that calls package code
 - Graceful setup errors when data, checkpoints, or BLIP assets are missing
+
+![Preserved notebook aircraft damage prediction example](results/sample_predictions/notebook_sample_prediction.png)
+
+*Preserved notebook output from the original project showing a sample aircraft-damage prediction result.*
+
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+    A[Aircraft Image] --> B[VGG16 Classifier]
+    B --> C[Predicted Label and Confidence]
+    C --> D[BLIP Caption and Summary Generator]
+    D --> E[Inspection-Style Report]
+```
 
 ## Project Structure
 
@@ -200,16 +241,33 @@ Caption: this is a picture of a plane that was sitting on the ground in a field
 Summary: this is a detailed photo showing the damage to the fuselage of the aircraft
 ```
 
-Example CLI prediction output after you add a local checkpoint:
+### Example End-to-End Output
+
+The preserved notebook artifacts show the two halves of the workflow separately: a classification visualization and BLIP-generated text. In the packaged project, those pieces are combined into one inspection-style output.
+
+- Classification signal preserved in the notebook sample image: predicted label `crack`
+- Confidence is available in the current CLI and demo flow, but it was not logged in the original notebook artifacts
+- BLIP descriptive signal preserved in the notebook outputs includes `Caption: this is a picture of a plane`
+- BLIP descriptive signal preserved in the notebook outputs includes `Summary: this is a detailed photo showing the engine of a boeing 747`
+- BLIP descriptive signal preserved in the notebook outputs includes `Caption: this is a picture of a plane that was sitting on the ground in a field`
+- BLIP descriptive signal preserved in the notebook outputs includes `Summary: this is a detailed photo showing the damage to the fuselage of the aircraft`
+
+Current report-style output structure in the refactored package:
 
 ```text
-Predicted class: <class_name>
+Aircraft Damage Assessment
+Image: <image_name>
+Predicted damage class: <class_name>
 Confidence: <confidence>
-Prediction artifact saved to: results/sample_predictions/<image_name>_prediction.json
-Report artifact saved to: results/sample_reports/<image_name>_report.txt
+Caption: <caption or fallback>
+Summary: <summary or fallback>
+Metadata:
+- No additional metadata supplied.
+Generation status: <BLIP status>
+Note: This output is decision support only and should be reviewed by a human inspector.
 ```
 
-The CLI example above illustrates the output format only. The exact values depend on your local checkpoint.
+The structure above reflects the current code path in `scripts/run_predict.py` and `src/aircraft_damage/report_generator.py`. Exact class labels, confidence values, and report text still depend on the local checkpoint and runtime inputs.
 
 ## Installation
 
