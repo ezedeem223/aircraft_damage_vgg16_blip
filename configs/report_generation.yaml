@@ -1,0 +1,11 @@
+project:
+  name: aircraft_damage_vgg16_blip
+  task: aircraft damage report generation with BLIP
+
+report_generation:
+  model_name: Salesforce/blip-image-captioning-base
+  caption_prompt: This is a picture of
+  summary_prompt: This is a detailed photo showing
+  max_new_tokens: 40
+  device: auto
+  use_template_fallback: true

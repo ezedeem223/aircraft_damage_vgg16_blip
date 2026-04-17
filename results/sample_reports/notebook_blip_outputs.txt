@@ -1,0 +1,10 @@
+Notebook BLIP outputs preserved from the original project
+=========================================================
+
+Example 1
+Caption: this is a picture of a plane
+Summary: this is a detailed photo showing the engine of a boeing 747
+
+Example 2
+Caption: this is a picture of a plane that was sitting on the ground in a field
+Summary: this is a detailed photo showing the damage to the fuselage of the aircraft

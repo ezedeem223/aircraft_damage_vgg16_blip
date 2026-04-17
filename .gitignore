@@ -1,36 +1,55 @@
-# 1. Virtual Environment (مهم جداً: رأيت هذا المجلد في صورك)
+__pycache__/
+*.py[cod]
+*.so
+
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
 .venv/
 venv/
 env/
 
-# 2. Python & Jupyter Caches (ملفات مؤقتة للنظام)
-__pycache__/
-*.py[cod]
-.ipynb_checkpoints/
-.DS_Store
+.env
 
-# 3. Datasets (البيانات التي تظهر في مجلد data)
-# نمنع رفع الصور والملفات المضغوطة الكبيرة
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+dist/
+build/
+*.egg-info/
+
+.cache/
+.gradio/
+
 data/aircraft_damage_dataset_v1/
 data/*.tar
 data/*.zip
-
-# 4. Trained Models (موديلات الذكاء الاصطناعي الضخمة)
-# GitHub يرفض الملفات أكبر من 100 ميجا
-*.h5
-*.keras
-*.pt
-*.pth
-*.bin
-*.weights
-
-# 5. Hugging Face / Cache
-# إذا قام الكود بتحميل ملفات كاش في المشروع
-.cache/
-
-# ملاحظة: سنسمح برفع مجلد outputs، لكن القواعد أعلاه (رقم 4) 
-# ستمنع رفع الموديلات الموجودة داخله وتسمح فقط برفع صور النتائج (png/jpg).
 notebooks/aircraft_damage_dataset_v1/
 notebooks/*.tar
 notebooks/*.zip
 
+models/*.h5
+models/*.keras
+models/*.pt
+models/*.pth
+models/*.ckpt
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.weights
+
+*.npy
+*.npz
+*.pkl
+*.joblib
+
+logs/
+wandb/
+mlruns/

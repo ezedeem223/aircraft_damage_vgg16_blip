@@ -1,2 +1,36 @@
-we will be using the [Aircraft dataset](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/ZjXM4RKxlBK9__ZjHBLl5A/aircraft-damage-dataset-v1.tar).
-The dataset is taken from the here (Original Source): [Roboflow Aircraft Dataset](https://universe.roboflow.com/youssef-donia-fhktl/aircraft-damage-detection-1j9qk) Provided by a Roboflow user, License: CC BY 4.
+# Data Directory
+
+This repository does not track the aircraft image dataset in Git.
+
+## Expected Layout
+
+```text
+data/
+└── aircraft_damage_dataset_v1/
+    ├── train/
+    │   ├── crack/
+    │   └── dent/
+    ├── valid/
+    │   ├── crack/
+    │   └── dent/
+    └── test/
+        ├── crack/
+        └── dent/
+```
+
+## Source
+
+- Public course mirror used by the original notebook:
+  `https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/ZjXM4RKxlBK9__ZjHBLl5A/aircraft-damage-dataset-v1.tar`
+- Original source reference: Roboflow Aircraft Damage Dataset
+
+## How to Prepare the Data
+
+1. Download and extract the dataset so that `train/`, `valid/`, and `test/` sit under `data/aircraft_damage_dataset_v1/`.
+2. Keep the class folder names consistent with the original project: `crack` and `dent`.
+3. Do not commit the raw images to Git.
+
+## Script Support
+
+- `python scripts/run_train.py --config configs/train.yaml --download-data` downloads the public tarball and extracts it locally.
+- `python scripts/run_evaluate.py --config configs/inference.yaml` expects the `test/` split to already exist.

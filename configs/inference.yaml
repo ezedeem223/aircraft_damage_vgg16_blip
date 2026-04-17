@@ -1,0 +1,22 @@
+project:
+  name: aircraft_damage_vgg16_blip
+  task: aircraft damage classification inference
+
+paths:
+  dataset_root: data/aircraft_damage_dataset_v1
+  test_dir: data/aircraft_damage_dataset_v1/test
+  model_checkpoint: models/vgg16_aircraft_damage.keras
+  results_dir: results
+  sample_predictions_dir: results/sample_predictions
+  sample_reports_dir: results/sample_reports
+
+classifier:
+  class_names:
+    - crack
+    - dent
+  image_size:
+    - 224
+    - 224
+  batch_size: 32
+  threshold: 0.5
+  seed: 42

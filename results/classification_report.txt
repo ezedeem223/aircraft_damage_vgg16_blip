@@ -1,0 +1,8 @@
+Classification report placeholder
+================================
+
+The original notebook did not save per-class precision/recall/F1 metrics.
+
+Generate this file after training or supplying a local checkpoint:
+
+python scripts/run_evaluate.py --config configs/inference.yaml

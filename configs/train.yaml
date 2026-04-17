@@ -1,0 +1,27 @@
+project:
+  name: aircraft_damage_vgg16_blip
+  task: aircraft damage classification with VGG16
+
+paths:
+  dataset_root: data/aircraft_damage_dataset_v1
+  archive_path: data/aircraft_damage_dataset_v1.tar
+  model_checkpoint: models/vgg16_aircraft_damage.keras
+  results_dir: results
+
+dataset:
+  source_url: https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/ZjXM4RKxlBK9__ZjHBLl5A/aircraft-damage-dataset-v1.tar
+
+classifier:
+  class_names:
+    - crack
+    - dent
+  image_size:
+    - 224
+    - 224
+  batch_size: 32
+  epochs: 5
+  learning_rate: 0.0001
+  dense_units: 512
+  dropout_rate: 0.3
+  threshold: 0.5
+  seed: 42

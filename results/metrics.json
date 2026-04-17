@@ -1,0 +1,38 @@
+{
+  "accuracy_epoch_history": [
+    0.5367,
+    0.7233,
+    0.7767,
+    0.8133,
+    0.88
+  ],
+  "dataset_sizes": {
+    "test": 50,
+    "train": 300,
+    "valid": 96
+  },
+  "loss_epoch_history": [
+    0.7201,
+    0.5535,
+    0.4737,
+    0.4123,
+    0.3204
+  ],
+  "provenance": "Preserved from notebook outputs in notebooks/aircraft_damage_vgg16_blip.ipynb. The original checkpoint is not committed to this repository.",
+  "test_accuracy": 0.6875,
+  "test_loss": 0.7326,
+  "validation_accuracy_epoch_history": [
+    0.6042,
+    0.6979,
+    0.7188,
+    0.6562,
+    0.7083
+  ],
+  "validation_loss_epoch_history": [
+    0.6338,
+    0.5821,
+    0.5486,
+    0.6457,
+    0.5098
+  ]
+}
