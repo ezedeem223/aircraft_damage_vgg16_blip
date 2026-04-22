@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it using the metadata below."
+title: "Aircraft Damage Classification and Automated Report Generation using VGG16 and BLIP"
+authors:
+  - family-names: "Sabbagh"
+    given-names: "Mohamad"
+repository-code: "https://github.com/ezedeem223/aircraft_damage_vgg16_blip"
+license: "MIT"

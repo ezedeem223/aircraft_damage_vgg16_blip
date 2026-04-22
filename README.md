@@ -7,7 +7,7 @@ This repository combines two related tasks for aircraft inspection support:
 1. binary image classification of aircraft surface damage using a VGG16-based transfer learning model
 2. automated captioning and report-style text generation using BLIP
 
-This repository packages the workflow as a reproducible Python project with runnable scripts, structured results, lightweight tests, and a small demo interface, while still keeping curated notebooks and archived experiment artifacts available for context.
+It is maintained as an installable Python project with config-driven scripts, structured results, lightweight tests, and a small demo interface. Archived notebooks remain in the repository for provenance and exploration, but they are not the maintained runtime surface.
 
 ## Quick Start
 
@@ -30,6 +30,31 @@ python scripts/run_demo.py --config configs/inference.yaml --report-config confi
 
 If you already have `models/vgg16_aircraft_damage.keras`, you can skip training and go straight to `scripts/run_demo.py` or `scripts/run_predict.py`.
 
+## Python API
+
+The package can also be used directly from Python:
+
+```python
+from aircraft_damage import generate_damage_report, load_config, predict_image
+
+config = load_config("configs/inference.yaml")
+prediction = predict_image(
+    image_path="path/to/image.jpg",
+    checkpoint_path=config["paths"]["model_checkpoint"],
+    class_names=config["classifier"]["class_names"],
+    image_size=tuple(config["classifier"]["image_size"]),
+    threshold=float(config["classifier"]["threshold"]),
+)
+
+report = generate_damage_report(
+    image_path=prediction.image_path,
+    predicted_class=prediction.predicted_class,
+    confidence=prediction.confidence,
+)
+```
+
+This requires a local classifier checkpoint and may download BLIP assets on first use.
+
 ## Why This Project Matters
 
 Aircraft inspection workflows often need more than a single label. This project combines binary damage classification with descriptive BLIP text so one image can produce both a categorical signal and readable inspection context, which is useful for maintenance triage, documentation support, and reducing repetitive manual review steps.
@@ -38,12 +63,12 @@ Aircraft inspection workflows often need more than a single label. This project 
 
 - VGG16 transfer-learning pipeline for binary aircraft damage classification
 - BLIP-backed caption and summary generation wrapped in a clean reporting interface
-- Config-driven training, evaluation, prediction, and demo scripts
+- Installable Python package plus config-driven training, evaluation, prediction, and demo scripts
 - Structured `results/` directory for metrics, plots, sample predictions, and sample reports
-- Curated development notebooks for exploratory analysis and reproducibility
+- Archived and lightweight notebooks retained for provenance and exploration
 - Graceful setup errors when data, checkpoints, or BLIP assets are missing
 
-![Preserved notebook aircraft damage prediction example](results/sample_predictions/notebook_sample_prediction.png)
+![Archived aircraft damage prediction example](results/sample_predictions/notebook_sample_prediction.png)
 
 *Archived experiment output showing a sample aircraft-damage prediction result.*
 
@@ -61,65 +86,67 @@ flowchart LR
 
 ```text
 aircraft_damage_vgg16_blip/
-├── .env.example
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-├── .gitignore
-├── LICENSE
-├── Makefile
-├── README.md
-├── app/
-│   ├── __init__.py
-│   └── gradio_app.py
-├── configs/
-│   ├── inference.yaml
-│   ├── report_generation.yaml
-│   └── train.yaml
-├── data/
-│   └── README.md
-├── models/
-│   └── README.md
-├── notebooks/
-│   ├── aircraft_damage_vgg16_blip.ipynb
-│   └── exploration.ipynb
-├── pyproject.toml
-├── requirements-dev.txt
-├── requirements.txt
-├── results/
-│   ├── README.md
-│   ├── accuracy_curve.png
-│   ├── classification_report.txt
-│   ├── confusion_matrix.png
-│   ├── metrics.json
-│   ├── sample_predictions/
-│   │   └── notebook_sample_prediction.png
-│   ├── sample_reports/
-│   │   ├── notebook_blip_example_image.png
-│   │   └── notebook_blip_outputs.txt
-│   ├── training_loss.png
-│   └── validation_loss.png
-├── scripts/
-│   ├── run_demo.py
-│   ├── run_evaluate.py
-│   ├── run_predict.py
-│   └── run_train.py
-├── src/
-│   └── aircraft_damage/
-│       ├── __init__.py
-│       ├── config.py
-│       ├── dataset.py
-│       ├── evaluate.py
-│       ├── predict.py
-│       ├── preprocessing.py
-│       ├── report_generator.py
-│       ├── train.py
-│       ├── utils.py
-│       └── visualization.py
-└── tests/
-    ├── test_config.py
-    ├── test_predict.py
-    └── test_report_generator.py
+|-- .env.example
+|-- .gitattributes
+|-- .github/
+|   `-- workflows/
+|       `-- ci.yml
+|-- .gitignore
+|-- CITATION.cff
+|-- LICENSE
+|-- Makefile
+|-- README.md
+|-- app/
+|   |-- __init__.py
+|   `-- gradio_app.py
+|-- configs/
+|   |-- inference.yaml
+|   |-- report_generation.yaml
+|   `-- train.yaml
+|-- data/
+|   `-- README.md
+|-- models/
+|   `-- README.md
+|-- notebooks/
+|   |-- aircraft_damage_vgg16_blip.ipynb
+|   `-- exploration.ipynb
+|-- pyproject.toml
+|-- requirements-dev.txt
+|-- requirements.txt
+|-- results/
+|   |-- README.md
+|   |-- accuracy_curve.png
+|   |-- classification_report.txt
+|   |-- confusion_matrix.png
+|   |-- metrics.json
+|   |-- sample_predictions/
+|   |   `-- notebook_sample_prediction.png
+|   |-- sample_reports/
+|   |   |-- notebook_blip_example_image.png
+|   |   `-- notebook_blip_outputs.txt
+|   |-- training_loss.png
+|   `-- validation_loss.png
+|-- scripts/
+|   |-- run_demo.py
+|   |-- run_evaluate.py
+|   |-- run_predict.py
+|   `-- run_train.py
+|-- src/
+|   `-- aircraft_damage/
+|       |-- __init__.py
+|       |-- config.py
+|       |-- dataset.py
+|       |-- evaluate.py
+|       |-- predict.py
+|       |-- preprocessing.py
+|       |-- report_generator.py
+|       |-- train.py
+|       |-- utils.py
+|       `-- visualization.py
+`-- tests/
+    |-- test_config.py
+    |-- test_predict.py
+    `-- test_report_generator.py
 ```
 
 ## Problem and Approach
@@ -144,15 +171,15 @@ The dataset is not committed to this repository. Place it locally under:
 
 ```text
 data/aircraft_damage_dataset_v1/
-├── train/
-│   ├── crack/
-│   └── dent/
-├── valid/
-│   ├── crack/
-│   └── dent/
-└── test/
-    ├── crack/
-    └── dent/
+|-- train/
+|   |-- crack/
+|   `-- dent/
+|-- valid/
+|   |-- crack/
+|   `-- dent/
+`-- test/
+    |-- crack/
+    `-- dent/
 ```
 
 You can either:
@@ -201,7 +228,7 @@ More detail is in [data/README.md](data/README.md).
 
 ## Results
 
-This repository includes baseline metrics from archived experiment artifacts. They are stored in [results/metrics.json](results/metrics.json) and summarized here:
+This repository includes baseline metrics from archived experiment artifacts. The maintained runtime surface is the Python package and scripts, while these preserved outputs provide provenance for the reported baseline. The metrics are stored in [results/metrics.json](results/metrics.json) and summarized here:
 
 - Training samples: `300`
 - Validation samples: `96`

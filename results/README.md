@@ -15,7 +15,7 @@ This directory contains two kinds of artifacts:
 - `sample_reports/notebook_blip_outputs.txt`
 - `metrics.json`
 
-The baseline metrics and plots above were collected from committed experiment artifacts. They are included for transparency because the repository does not contain the checkpoint used to produce those archived outputs.
+The baseline metrics and plots above were collected from committed experiment artifacts. They remain in the repository for provenance, while the maintained runtime surface is the packaged Python project and its scripts. The checkpoint used to produce those archived outputs is not included.
 
 ## Placeholders
 

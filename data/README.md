@@ -6,16 +6,16 @@ This repository does not track the aircraft image dataset in Git.
 
 ```text
 data/
-└── aircraft_damage_dataset_v1/
-    ├── train/
-    │   ├── crack/
-    │   └── dent/
-    ├── valid/
-    │   ├── crack/
-    │   └── dent/
-    └── test/
-        ├── crack/
-        └── dent/
+`-- aircraft_damage_dataset_v1/
+    |-- train/
+    |   |-- crack/
+    |   `-- dent/
+    |-- valid/
+    |   |-- crack/
+    |   `-- dent/
+    `-- test/
+        |-- crack/
+        `-- dent/
 ```
 
 ## Source
