@@ -2,16 +2,20 @@
 
 [![CI](https://github.com/ezedeem223/aircraft_damage_vgg16_blip/actions/workflows/ci.yml/badge.svg)](https://github.com/ezedeem223/aircraft_damage_vgg16_blip/actions/workflows/ci.yml)
 
-This repository combines two related tasks for aircraft inspection support:
+This repository packages an aircraft inspection-support workflow built around two
+cooperating tasks:
 
 1. binary image classification of aircraft surface damage using a VGG16-based transfer learning model
 2. automated captioning and report-style text generation using BLIP
 
-It is maintained as an installable Python project with config-driven scripts, structured results, lightweight tests, and a small demo interface. Archived notebooks remain in the repository for provenance and exploration, but they are not the maintained runtime surface.
+The maintained surface is the `aircraft_damage` Python package, its
+config-driven scripts, and a lightweight demo interface. Archived notebooks
+remain for provenance and exploration, but they do not define the maintained
+runtime surface or release identity.
 
 ## Quick Start
 
-The fastest path to try the full pipeline locally is:
+The fastest path to run the maintained inspection-support workflow locally is:
 
 ```bash
 python -m venv .venv
@@ -28,7 +32,8 @@ python scripts/run_train.py --config configs/train.yaml --download-data
 python scripts/run_demo.py --config configs/inference.yaml --report-config configs/report_generation.yaml
 ```
 
-If you already have `models/vgg16_aircraft_damage.keras`, you can skip training and go straight to `scripts/run_demo.py` or `scripts/run_predict.py`.
+If you already have `models/vgg16_aircraft_damage.keras`, you can skip training
+and go straight to `scripts/run_demo.py` or `scripts/run_predict.py`.
 
 ## Python API
 
@@ -53,7 +58,8 @@ report = generate_damage_report(
 )
 ```
 
-This requires a local classifier checkpoint and may download BLIP assets on first use.
+This uses the exported package surface directly. It still requires a local
+classifier checkpoint and may download BLIP assets on first use.
 
 ## Why This Project Matters
 
@@ -63,9 +69,11 @@ Aircraft inspection workflows often need more than a single label. This project 
 
 - VGG16 transfer-learning pipeline for binary aircraft damage classification
 - BLIP-backed caption and summary generation wrapped in a clean reporting interface
-- Installable Python package plus config-driven training, evaluation, prediction, and demo scripts
+- Installable Python package plus config-driven training, evaluation, prediction,
+  and demo scripts
 - Structured `results/` directory for metrics, plots, sample predictions, and sample reports
-- Archived and lightweight notebooks retained for provenance and exploration
+- Archived notebooks retained for provenance and exploration without defining the
+  maintained runtime surface
 - Graceful setup errors when data, checkpoints, or BLIP assets are missing
 
 ![Archived aircraft damage prediction example](results/sample_predictions/notebook_sample_prediction.png)
@@ -107,9 +115,6 @@ aircraft_damage_vgg16_blip/
 |   `-- README.md
 |-- models/
 |   `-- README.md
-|-- notebooks/
-|   |-- aircraft_damage_vgg16_blip.ipynb
-|   `-- exploration.ipynb
 |-- pyproject.toml
 |-- requirements-dev.txt
 |-- requirements.txt
@@ -143,6 +148,10 @@ aircraft_damage_vgg16_blip/
 |       |-- train.py
 |       |-- utils.py
 |       `-- visualization.py
+|-- notebooks/
+|   |-- README.md
+|   |-- aircraft_damage_vgg16_blip.ipynb
+|   `-- exploration.ipynb
 `-- tests/
     |-- test_config.py
     |-- test_predict.py
@@ -163,7 +172,8 @@ This setup is intentionally practical rather than overengineered: classification
 
 This project uses a public aircraft damage dataset referenced below:
 
-- Public dataset tarball reference used in earlier experiments: `https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/ZjXM4RKxlBK9__ZjHBLl5A/aircraft-damage-dataset-v1.tar`
+- Public dataset tarball reference used by the current project configuration:
+  `https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/ZjXM4RKxlBK9__ZjHBLl5A/aircraft-damage-dataset-v1.tar`
 - Original source reference: Roboflow Aircraft Damage Dataset by Youssef Donia
 - Public source license reference: CC BY 4.0
 
@@ -228,7 +238,11 @@ More detail is in [data/README.md](data/README.md).
 
 ## Results
 
-This repository includes baseline metrics from archived experiment artifacts. The maintained runtime surface is the Python package and scripts, while these preserved outputs provide provenance for the reported baseline. The metrics are stored in [results/metrics.json](results/metrics.json) and summarized here:
+This repository includes baseline metrics from archived experiment artifacts.
+The maintained runtime surface is the Python package, scripts, and demo, while
+these preserved outputs provide provenance for the reported baseline. The
+metrics are stored in [results/metrics.json](results/metrics.json) and
+summarized here:
 
 - Training samples: `300`
 - Validation samples: `96`
@@ -343,12 +357,14 @@ python scripts/run_predict.py --image path/to/image.jpg --config configs/inferen
 python scripts/run_demo.py --config configs/inference.yaml --report-config configs/report_generation.yaml
 ```
 
-## Development Notebooks
+## Archived Notebooks
 
 - [notebooks/aircraft_damage_vgg16_blip.ipynb](notebooks/aircraft_damage_vgg16_blip.ipynb) is an archived development notebook containing the earlier exploratory implementation and recorded outputs.
 - [notebooks/exploration.ipynb](notebooks/exploration.ipynb) is a curated lightweight notebook for exploration and demos against the packaged codebase.
 
 The repository no longer depends on notebook execution for core functionality.
+See [notebooks/README.md](notebooks/README.md) for the provenance and Linguist
+note that applies to this archived material.
 
 ## Limitations
 
@@ -368,4 +384,6 @@ The repository no longer depends on notebook execution for core functionality.
 
 ## License
 
-This repository is released under the MIT License for code. Dataset usage remains subject to the upstream dataset license and terms described in the data source.
+Code in this repository is released under the [MIT License](LICENSE). Dataset
+usage remains subject to the upstream dataset license and terms described in the
+data source.

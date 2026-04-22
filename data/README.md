@@ -20,7 +20,7 @@ data/
 
 ## Source
 
-- Public dataset tarball reference used in earlier experiments:
+- Public dataset tarball reference used by the current project configuration:
   `https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/ZjXM4RKxlBK9__ZjHBLl5A/aircraft-damage-dataset-v1.tar`
 - Original source reference: Roboflow Aircraft Damage Dataset
 

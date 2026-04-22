@@ -4,11 +4,28 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aircraft-damage-vgg16-blip"
-version = "0.1.0"
+version = "1.0.0"
 description = "Aircraft damage classification with VGG16 and BLIP-based report generation."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
+authors = [{ name = "Mohamad Sabbagh" }]
+keywords = [
+  "aircraft-inspection",
+  "blip",
+  "damage-classification",
+  "tensorflow",
+  "vgg16",
+  "vision-language",
+]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
   "gradio>=5.0",
   "matplotlib>=3.8",
@@ -20,6 +37,10 @@ dependencies = [
   "torch>=2.4",
   "transformers>=4.38",
 ]
+
+[project.urls]
+Repository = "https://github.com/ezedeem223/aircraft_damage_vgg16_blip"
+Issues = "https://github.com/ezedeem223/aircraft_damage_vgg16_blip/issues"
 
 [tool.setuptools]
 package-dir = { "" = "src" }

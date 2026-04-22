@@ -58,7 +58,7 @@ def validate_dataset_layout(dataset_root: str | Path) -> tuple[DatasetPaths, lis
             next_steps=[
                 "Place the extracted dataset under the configured dataset_root.",
                 "Expected subdirectories: train/, valid/, test/.",
-                "Use scripts/run_train.py --download-data to fetch the public course mirror.",
+                "Use scripts/run_train.py --download-data to fetch the public dataset archive.",
             ],
         )
 
@@ -88,7 +88,7 @@ def download_dataset(
     dataset_url: str = DEFAULT_DATASET_URL,
     force: bool = False,
 ) -> DatasetPaths:
-    """Download and extract the dataset archive used by the original notebook."""
+    """Download and extract the dataset archive referenced by the project config."""
 
     paths = get_dataset_paths(dataset_root)
     archive = resolve_path(archive_path)
