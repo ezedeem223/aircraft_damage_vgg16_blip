@@ -366,6 +366,25 @@ The repository no longer depends on notebook execution for core functionality.
 See [notebooks/README.md](notebooks/README.md) for the provenance and Linguist
 note that applies to this archived material.
 
+## Research Evidence Pack
+
+The `docs/research_pack/` directory contains institution-neutral research
+documentation for the aircraft damage classification and report-generation
+workflow, including an [academic research brief](docs/research_pack/ACADEMIC_RESEARCH_BRIEF.md),
+[model card](docs/research_pack/MODEL_CARD.md),
+[metric provenance matrix](docs/research_pack/METRIC_PROVENANCE_MATRIX.md),
+[inspection report protocol](docs/research_pack/INSPECTION_REPORT_PROTOCOL.md),
+[vision-language limitations](docs/research_pack/VISION_LANGUAGE_LIMITATIONS.md),
+[failure mode matrix](docs/research_pack/FAILURE_MODE_MATRIX.md),
+[dataset/task card](docs/research_pack/DATASET_AND_TASK_CARD.md), and
+[reproducibility checklist](docs/research_pack/REPRODUCIBILITY_CHECKLIST.md).
+
+Run:
+
+```bash
+python tools/evidence/validate_research_pack.py
+```
+
 ## Limitations
 
 - The current classifier is binary only and assumes the `crack` vs `dent` label setup used by the archived experiment assets and current configs.
